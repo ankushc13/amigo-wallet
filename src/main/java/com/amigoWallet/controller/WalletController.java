@@ -80,7 +80,7 @@ public class WalletController {
 		return ResponseEntity.status(HttpStatus.OK).body(loadWalletService.getWalletId(email)); 
 	}
 	@PostMapping(value = "/wallet/{email}/{amount}") 
-	public ResponseEntity<String> walletTopUp(@PathVariable String email,@PathVariable Double amount) throws CustomerException, JsonProcessingException{
+	public ResponseEntity<String> addCashBack(@PathVariable String email,@PathVariable Double amount) throws CustomerException, JsonProcessingException{
 		loadWalletService.addCashBack(email,amount);
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}

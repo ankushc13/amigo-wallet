@@ -98,7 +98,7 @@ public class WalletService {
 		if(bank.getAmount()<amount) {
 			throw new CustomerException("insufficent bank balance");
 		}
-		bank.setAmount(bank.getAmount()-amount);
+		bank.setAmount(Double.parseDouble(decfor.format(bank.getAmount()-amount)));
 		addBankRepository.save(bank);
 		Wallet wallet = walletOptional.get();
 		wallet.setWalletAmount(wallet.getWalletAmount()+amount);
@@ -131,8 +131,7 @@ public class WalletService {
 		Bank bank = bankOptional.get();
 		bank.setAmount(bank.getAmount()+bankDTO.getAmount());
 		addBankRepository.save(bank);
-		
-		wallet.setWalletAmount(wallet.getWalletAmount()-bankDTO.getAmount());
+		wallet.setWalletAmount(Double.parseDouble(decfor.format(wallet.getWalletAmount()-bankDTO.getAmount())));
 		loadWalletRepository.save(wallet);
 		
 		addBankRepository.flush();
@@ -160,8 +159,7 @@ public class WalletService {
 			Wallet walletReciver = walletReciverOptional.get();
 			walletReciver.setWalletAmount(walletReciver.getWalletAmount()+walletDTO.getWalletAmount());
 			loadWalletRepository.save(walletReciver);
-			
-			wallet.setWalletAmount(wallet.getWalletAmount()-walletDTO.getWalletAmount());
+			wallet.setWalletAmount(Double.parseDouble(decfor.format(wallet.getWalletAmount()-walletDTO.getWalletAmount())));
 			wallet.setRewardPoint(wallet.getRewardPoint()+rewardPoint);
 			loadWalletRepository.save(wallet);
 			loadWalletRepository.flush();
